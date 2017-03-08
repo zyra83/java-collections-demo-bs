@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import democollections.model.entities.Cycliste;
+import democollections.model.entities.comparators.FrequenceCardiaqueComparator;
 
 public class Lanceur {
 
@@ -18,7 +19,7 @@ public class Lanceur {
 		Cycliste c2 = new Cycliste();
 		c2.setNom("fifi");
 		c2.setDernierDepistage(LocalDate.of(2017, 01, 02));
-		c2.setFrequenceCardiaque(210);
+		c2.setFrequenceCardiaque(100);
 
 		// Avant Java 7 on type aussi le new
 		// List<Cycliste> lstCyclistes = new ArrayList<Cycliste>();
@@ -27,6 +28,7 @@ public class Lanceur {
 
 		// ajouter un cycliste
 		lstCyclistes.add(c1);
+		lstCyclistes.add(c2);
 
 		// récupérer par index
 		lstCyclistes.get(0);
@@ -41,6 +43,14 @@ public class Lanceur {
 		 * methode compareTo
 		 */
 		Collections.sort(lstCyclistes);
+		for (Cycliste cycliste : lstCyclistes) {
+			System.out.println(cycliste);
+		}
+
+		/*
+		 * trier la liste de cycliste par fréquence cardiaque => Comparator.
+		 */
+		Collections.sort(lstCyclistes, new FrequenceCardiaqueComparator());
 		for (Cycliste cycliste : lstCyclistes) {
 			System.out.println(cycliste);
 		}
