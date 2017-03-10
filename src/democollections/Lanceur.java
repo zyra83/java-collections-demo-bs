@@ -3,9 +3,11 @@ package democollections;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import democollections.model.entities.Cycliste;
 import democollections.model.entities.comparators.FrequenceCardiaqueComparator;
@@ -22,6 +24,12 @@ public class Lanceur {
 		c2.setNom("fifi");
 		c2.setDernierDepistage(LocalDate.of(2017, 01, 02));
 		c2.setFrequenceCardiaque(100);
+
+		// C3 sera identique à C2 au sens d'equals (test des Sets)
+		Cycliste c3 = new Cycliste();
+		c3.setNom("fifi");
+		c3.setDernierDepistage(LocalDate.of(2017, 02, 02));
+		c3.setFrequenceCardiaque(150);
 
 		// Avant Java 7 on type aussi le new
 		// List<Cycliste> lstCyclistes = new ArrayList<Cycliste>();
@@ -107,6 +115,19 @@ public class Lanceur {
 		// il retourne la dernière occurence de la liste si occurences
 		// multiples.
 		lstCyclistes2.indexOf(c2);
+
+		//////////////
+		// LES SETS //
+		//////////////
+
+		// Collection d'instances uniques (au sens d'equals).
+		Set<Cycliste> set = new HashSet<>();
+
+		System.out.println(set.add(c1));
+		System.out.println(set.add(c2));
+		// c3 s'apelle fifi comme c2
+		System.out.println(set.add(c3));
+
 	}
 
 }
