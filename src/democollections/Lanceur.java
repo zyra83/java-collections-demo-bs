@@ -128,6 +128,21 @@ public class Lanceur {
 		// c3 s'apelle fifi comme c2
 		System.out.println(set.add(c3));
 
+		for (Cycliste cycliste : set) {
+			System.out.println(cycliste);
+		}
+
+		for (int i = 0; i < set.size(); i++) {
+			// Set s = set.get(); PAS D'INDICE SUR LES SET
+			// pas d'indexOf non plus
+		}
+
+		Iterator it2 = set.iterator();
+		while (it2.hasNext()) {
+			Cycliste cycliste = (Cycliste) it2.next();
+			System.out.println(cycliste);
+		}
+
 	}
 
 }
