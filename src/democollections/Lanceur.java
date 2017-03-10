@@ -2,17 +2,23 @@ package democollections;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.UUID;
 
 import democollections.model.entities.Cycliste;
 import democollections.model.entities.comparators.FrequenceCardiaqueComparator;
+import javafx.collections.transformation.SortedList;
 
 public class Lanceur {
 
@@ -152,6 +158,39 @@ public class Lanceur {
 		SortedSet<Cycliste> sset = new TreeSet<>(set);
 		sset.forEach(System.out::println);
 
+		//////////////
+		/*
+		 * LES MAPS : couples clés/valeurs Elles se manipullent de maière
+		 * totalement différence des "Collection" - clé unique
+		 * 
+		 */
+
+		Map<String, String> mapAcro = new HashMap<>();
+		mapAcro.put("SNCF", "Société Nationale des Chemins de Fer");
+		mapAcro.put("LED", "Light Emmiting Diode");
+		mapAcro.put("LED", "Light Emmiting ...");
+		mapAcro.put("RADAR", "Ranging...");
+
+		for (String cle : mapAcro.keySet()) {
+			System.out.printf("%s => %s %n", cle, mapAcro.get(cle));
+		}
+
+		// LinkedHashMap : il est trié
+		Map<String, String> mapAcro2 = new LinkedHashMap<>();
+		mapAcro2.put("SNCF", "Société Nationale des Chemins de Fer");
+		mapAcro2.put("LED", "Light Emmiting Diode");
+		mapAcro2.put("LED", "Light Emmiting ...");
+		mapAcro2.put("RADAR", "Ranging...");
+
+		for (String cle : mapAcro2.keySet()) {
+			System.out.printf("%s => %s %n", cle, mapAcro2.get(cle));
+		}
+
+		// Autre façon de parcourir en ayant juste les valeurs.
+		Collection<String> valeurs = mapAcro.values();
+		valeurs.forEach(System.out::println);
+			
+		
 	}
 
 }
