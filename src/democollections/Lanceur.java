@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import democollections.model.entities.Cycliste;
 import democollections.model.entities.comparators.FrequenceCardiaqueComparator;
@@ -142,6 +144,13 @@ public class Lanceur {
 			Cycliste cycliste = (Cycliste) it2.next();
 			System.out.println(cycliste);
 		}
+
+		// Les set ne sont pas triés par défaut, la liste sort en vrac. Pour les
+		// trier on a le SortedSet
+		// ici collection de cyclistes uniques triés par ordre alphabétique de
+		// nom car compareTo compare les noms.
+		SortedSet<Cycliste> sset = new TreeSet<>(set);
+		sset.forEach(System.out::println);
 
 	}
 
