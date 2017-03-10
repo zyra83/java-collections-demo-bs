@@ -3,6 +3,7 @@ package democollections;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,11 +28,13 @@ public class Lanceur {
 		// Depuis java 7
 		// liste chainée: ajout/sup fréquente
 		List<Cycliste> lkCyclistes = new LinkedList<>();
-		List<Cycliste> lstCyclistes2 = new ArrayList<>(lkCyclistes);
 
 		// ajouter un cycliste
 		lkCyclistes.add(c1);
 		lkCyclistes.add(c2);
+
+		// passage d'un type de liste à un autre.
+		List<Cycliste> lstCyclistes2 = new ArrayList<>(lkCyclistes);
 
 		// récupérer par index
 		lkCyclistes.get(0);
@@ -72,23 +75,38 @@ public class Lanceur {
 		for (Cycliste cycliste : lkCyclistes) {
 			System.out.println(cycliste);
 		}
-		
-		
+
 		// Old school
 		Calculable addition = new Calculable() {
-			
+
 			@Override
 			public double calculer(double op1, double op2) {
-				return op1 +  op2;
+				return op1 + op2;
 			}
 		};
-		System.out.println(addition.calculer(2,5));
-		
-		// Lamdda
-		Calculable add = (op1, op2) -> op1  + op2;
-		System.out.println(add.calculer(2,5));
-		
+		System.out.println(addition.calculer(2, 5));
 
+		// Lamdda
+		Calculable add = (op1, op2) -> op1 + op2;
+		System.out.println(add.calculer(2, 5));
+
+		// Iterator
+		Iterator<Cycliste> it = lstCyclistes2.iterator();
+		while (it.hasNext()) {
+			Cycliste cycliste = (Cycliste) it.next();
+			System.out.println(cycliste);
+		}
+
+		// attention identité de la classe
+		System.out.println(lkCyclistes.contains(c2));
+
+		// référence de méthode
+		lstCyclistes2.forEach(System.out::println);
+
+		// indexof attention à l'identité de la classe aussi.
+		// il retourne la dernière occurence de la liste si occurences
+		// multiples.
+		lstCyclistes2.indexOf(c2);
 	}
 
 }
