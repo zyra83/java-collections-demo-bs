@@ -72,6 +72,22 @@ public class Lanceur {
 		for (Cycliste cycliste : lkCyclistes) {
 			System.out.println(cycliste);
 		}
+		
+		
+		// Old school
+		Calculable addition = new Calculable() {
+			
+			@Override
+			public double calculer(double op1, double op2) {
+				return op1 +  op2;
+			}
+		};
+		System.out.println(addition.calculer(2,5));
+		
+		// Lamdda
+		Calculable add = (op1, op2) -> op1  + op2;
+		System.out.println(add.calculer(2,5));
+		
 
 	}
 
