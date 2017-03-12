@@ -81,7 +81,8 @@ public class Cycliste implements Comparable<Cycliste> {
 		 * est fondée sur le nom. ATTENTION VERIFIER o != null
 		 */
 		if (o != null) {
-			return this.getNom().compareTo(o.getNom());
+			// pas besoin de passer par le getNom
+			return nom.compareTo(o.nom);
 		}
 		return -1;
 	}

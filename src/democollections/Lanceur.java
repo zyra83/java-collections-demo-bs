@@ -14,15 +14,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.UUID;
 
 import democollections.model.entities.Cycliste;
 import democollections.model.entities.comparators.FrequenceCardiaqueComparator;
-import javafx.collections.transformation.SortedList;
 
 public class Lanceur {
 
 	public static void main(String[] args) {
+
+		///////////////////
+		// MES CYCLISTES //
+		///////////////////
+
 		Cycliste c1 = new Cycliste();
 		c1.setNom("riri");
 		c1.setDernierDepistage(LocalDate.of(2017, 01, 01));
@@ -39,15 +42,25 @@ public class Lanceur {
 		c3.setDernierDepistage(LocalDate.of(2017, 02, 02));
 		c3.setFrequenceCardiaque(150);
 
-		// Avant Java 7 on type aussi le new
-		// List<Cycliste> lstCyclistes = new ArrayList<Cycliste>();
-		// Depuis java 7
-		// liste chainée: ajout/sup fréquente
+		//////////////
+		// LES LIST //
+		//////////////
+
+		/*
+		 * Avant Java 7 on type aussi le diamant à la déclaration et à la
+		 * construction. Ici il découvre seul son type.
+		 */
+
+		/*
+		 * La LinkedList est à utiliser en priorié en cas d'ajouts/supression
+		 * fréquents d'éléments en milieu de liste.
+		 */
 		List<Cycliste> lkCyclistes = new LinkedList<>();
 
-		// ajouter un cycliste
+		// Ajout des cyclistes à la liste.
 		lkCyclistes.add(c1);
 		lkCyclistes.add(c2);
+		lkCyclistes.add(c3);
 
 		// passage d'un type de liste à un autre.
 		List<Cycliste> lstCyclistes2 = new ArrayList<>(lkCyclistes);
@@ -55,39 +68,61 @@ public class Lanceur {
 		// récupérer par index
 		lkCyclistes.get(0);
 
-		// parcourir les cyclistes
+		// parcourir la liste de Cyclistes sans tri.
+		System.out.println("0. Parcours non trié");
 		for (Cycliste cycliste : lkCyclistes) {
 			System.out.println(cycliste);
 		}
 
 		/*
-		 * trier les cyclistes par hash ATTENTION IMPLEMENTER COMPARABLE !!
-		 * methode compareTo
+		 * parcourir la liste de Cyclistes avec un tri sur l'identité des
+		 * objets. 
+		 * ATTENTION À IMPLEMENTER COMPARABLE SUR LES CYCLISTES.
+		 * Se base sur la méthode compareTo.
 		 */
+		System.out.println("1. Parcours trié par défaut");
 		Collections.sort(lkCyclistes);
 		for (Cycliste cycliste : lkCyclistes) {
 			System.out.println(cycliste);
 		}
 
 		/*
-		 * trier la liste de cycliste par fréquence cardiaque => Comparator.
+		 * parcourir la liste de Cyclistes avec un tri sur la fréquence
+		 * cardiaque des Cyclistes. 
+		 * ICI ON UTILISE UN COMPARATOR.
+		 * Se base sur l'implémentaiton d'un Comparator.
 		 */
+		System.out.println("2. Comparator");
 		Collections.sort(lkCyclistes, new FrequenceCardiaqueComparator());
 		for (Cycliste cycliste : lkCyclistes) {
 			System.out.println(cycliste);
 		}
 
 		/*
-		 * trier la liste de cycliste par fréquence cardiaque => expression
-		 * lambda.
+		 * Depuis Java 8.
+		 * parcourir la liste de Cycliste avec l'utilisation de lambdas. 
+		 * - lambdas en syntaxe lourde et en syntaxe réduite.
+		 * - le code d'une lambda n'est pas réutilisable (si le même tri doit être fait plusieurs fois, envisager un Comparator)
 		 */
-		// version lourde
+		System.out.println("3. Trié par lambda");
+		
+		/*
+		 * version lourde (multiligne : accolades, type les arguments, mettre un
+		 * return)
+		 */
 		Collections.sort(lkCyclistes, (Cycliste o1, Cycliste o2) -> {
+			// multiligne
+			System.out.println("Je suis une lambda multiligne.");
 			return Integer.compare(o1.getFrequenceCardiaque(), o2.getFrequenceCardiaque());
 		});
-		// version légère
-		Collections.sort(lkCyclistes,
-				(o1, o2) -> Integer.compare(o1.getFrequenceCardiaque(), o2.getFrequenceCardiaque()));
+
+		/*
+		 * Version légère (multiligne impossible, typage des arguments
+		 * automatique, pas besoin du return et pas d'accolades)
+		 */
+		Collections.sort(lkCyclistes, (o1, o2) -> Integer.compare(o1.getFrequenceCardiaque(), o2.getFrequenceCardiaque()));
+
+		// affichage
 		for (Cycliste cycliste : lkCyclistes) {
 			System.out.println(cycliste);
 		}
@@ -100,6 +135,11 @@ public class Lanceur {
 				return op1 + op2;
 			}
 		};
+		
+		//////////////////////////
+		// Functional Interface //
+		//////////////////////////
+		
 		System.out.println(addition.calculer(2, 5));
 
 		// Lamdda
@@ -125,8 +165,10 @@ public class Lanceur {
 		lstCyclistes2.indexOf(c2);
 
 		//////////////
-		// LES SETS //
+		// LES SET //
 		//////////////
+
+		Set<Cycliste> monSettest = new TreeSet<Cycliste>(lstCyclistes2);
 
 		// Collection d'instances uniques (au sens d'equals).
 		Set<Cycliste> set = new HashSet<>();
@@ -151,20 +193,24 @@ public class Lanceur {
 			System.out.println(cycliste);
 		}
 
-		// Les set ne sont pas triés par défaut, la liste sort en vrac. Pour les
-		// trier on a le SortedSet
-		// ici collection de cyclistes uniques triés par ordre alphabétique de
-		// nom car compareTo compare les noms.
+		/*
+		 * Les set ne sont pas triés par défaut, la liste sort en vrac. Pour les
+		 * trier on a le SortedSet implémenté dans TreeSet ici collection de
+		 * cyclistes uniques triés par ordre alphabétique de nom car compareTo
+		 * compare les noms.
+		 */
 		SortedSet<Cycliste> sset = new TreeSet<>(set);
 		sset.forEach(System.out::println);
 
 		//////////////
+		// LES MAPS //
+		//////////////
+
 		/*
 		 * LES MAPS : couples clés/valeurs Elles se manipullent de maière
 		 * totalement différence des "Collection" - clé unique
 		 * 
 		 */
-
 		Map<String, String> mapAcro = new HashMap<>();
 		mapAcro.put("SNCF", "Société Nationale des Chemins de Fer");
 		mapAcro.put("LED", "Light Emmiting Diode");
@@ -186,11 +232,20 @@ public class Lanceur {
 			System.out.printf("%s => %s %n", cle, mapAcro2.get(cle));
 		}
 
+		Map<Integer, Cycliste> mapCyclistes = new HashMap<>();
+		mapCyclistes.put(3, c3);
+		mapCyclistes.put(1, c1);
+		mapCyclistes.put(2, c2);
+
+		// Parcours d'une map
+		for (Integer cle : mapCyclistes.keySet()) {
+			System.out.printf("%s => %s %n", cle, mapCyclistes.get(cle));
+		}
+
 		// Autre façon de parcourir en ayant juste les valeurs.
 		Collection<String> valeurs = mapAcro.values();
 		valeurs.forEach(System.out::println);
-			
-		
+
 	}
 
 }
