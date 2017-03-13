@@ -1,78 +1,65 @@
 package democollections.model.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 
-public class Cycliste implements Comparable<Cycliste> {
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
-	private String nom;
-	private int frequenceCardiaque;
-	private LocalDate dernierDepistage;
+@SuppressWarnings("serial")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = { "nom" })
+// attention avec Lombok le toString fait des + à la place des buffers
+@ToString
+// constructeur vide de bean
+@NoArgsConstructor
+public class Cycliste implements Serializable, Comparable<Cycliste> {
 
-	public Cycliste() {
-		// TODO Auto-generated constructor stub
-	}
+	@Getter
+	@Setter
+	String nom;
 
-	public String getNom() {
-		return nom;
-	}
+	@Getter
+	@Setter
+	String prenom;
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+	@Getter
+	@Setter
+	int frequenceCardiaque;
 
-	public int getFrequenceCardiaque() {
-		return frequenceCardiaque;
-	}
+	@Getter
+	@Setter
+	LocalDate dernierDepistage;
 
-	public void setFrequenceCardiaque(int frequenceCardiaque) {
-		this.frequenceCardiaque = frequenceCardiaque;
-	}
-
-	public LocalDate getDernierDepistage() {
-		return dernierDepistage;
-	}
-
-	public void setDernierDepistage(LocalDate dernierDepistage) {
-		this.dernierDepistage = dernierDepistage;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Cycliste [nom=");
-		builder.append(nom);
-		builder.append(", frequenceCardiaque=");
-		builder.append(frequenceCardiaque);
-		builder.append(", dernierDepistage=");
-		builder.append(dernierDepistage);
-		builder.append("]");
-		return builder.toString();
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cycliste other = (Cycliste) obj;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		return true;
-	}
+//	List<Velo> lstVelo;
+//
+//	/**
+//	 * On préfère ça sinon lombok renvoi direct un accès à la référence de la
+//	 * liste de vélos de l'objet.
+//	 * 
+//	 * @return
+//	 */
+//	public List<Velo> getLstVelo() {
+//		return Collections.unmodifiableList(lstVelo);
+//	}
+//
+//	/**
+//	 * Permet d'ajouter 1 à X vélos
+//	 * 
+//	 * @param velos
+//	 */
+//	public void ajouterVelo(Velo... velos) {
+//		for (Velo velo : velos) {
+//			lstVelo.add(velo);
+//		}
+//	}
 
 	@Override
 	public int compareTo(Cycliste o) {
@@ -82,7 +69,7 @@ public class Cycliste implements Comparable<Cycliste> {
 		 */
 		if (o != null) {
 			// pas besoin de passer par le getNom
-			return nom.compareTo(o.nom);
+			return getNom().compareTo(o.getNom());
 		}
 		return -1;
 	}
