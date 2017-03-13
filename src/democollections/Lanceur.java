@@ -11,8 +11,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import democollections.model.entities.Cycliste;
@@ -228,24 +231,44 @@ public class Lanceur {
 		mapAcro2.put("LED", "Light Emmiting ...");
 		mapAcro2.put("RADAR", "Ranging...");
 
+		// parcours en itérant sur les clés
+		System.out.println("- parcours de map sur les clés");
 		for (String cle : mapAcro2.keySet()) {
 			System.out.printf("%s => %s %n", cle, mapAcro2.get(cle));
 		}
 
-		Map<Integer, Cycliste> mapCyclistes = new HashMap<>();
-		mapCyclistes.put(3, c3);
-		mapCyclistes.put(1, c1);
-		mapCyclistes.put(2, c2);
-
-		// Parcours d'une map
-		for (Integer cle : mapCyclistes.keySet()) {
-			System.out.printf("%s => %s %n", cle, mapCyclistes.get(cle));
+		// parcours à l'aide de l'EntrySet
+		System.out.println("- Récupération de l'entry set et iteration");
+		Set<Entry<String, String>> couples = mapAcro.entrySet();
+		for (Entry<String, String> entry : couples) {
+			System.out.println(entry);
 		}
 
-		// Autre façon de parcourir en ayant juste les valeurs.
+		// parcours sur les valeurs
+		System.out.println("- parcours de map sur les valeurs");
 		Collection<String> valeurs = mapAcro.values();
 		valeurs.forEach(System.out::println);
 
+		// teste la présence d'une clé
+		mapAcro.containsKey("LED"); // true
+		mapAcro.containsKey("LASER"); // false
+		
+		// teste la présence d'une valeur
+		mapAcro.containsValue("Light Emiting ..."); // true
+		mapAcro.containsValue("Lapin de Garenne"); // false
+		
+		// replace, remove, 
+		// Fonctionnement qui évite d'écraser un élément à la clé déjà présente.
+		mapAcro2.putIfAbsent("key", "value");
+		
+		
+		// nouvelle map triée à partir des clés
+		System.out.println("- map triée à partir de mapAcro qui n'était pas triée");
+		SortedMap<String, String> mapTriee = new TreeMap<>(mapAcro2);
+		for (String cle : mapTriee.keySet()) {
+			System.out.printf("%s => %s %n", cle, mapTriee.get(cle));
+		}
+		
 	}
 
 }
