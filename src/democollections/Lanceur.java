@@ -171,7 +171,6 @@ public class Lanceur {
 		// LES SET //
 		//////////////
 
-		@SuppressWarnings("unused")
 		Set<Cycliste> monSettest = new TreeSet<Cycliste>(lstCyclistes2);
 
 		// Collection d'instances uniques (au sens d'equals).
@@ -191,7 +190,7 @@ public class Lanceur {
 			// pas d'indexOf non plus
 		}
 
-		Iterator<Cycliste> it2 = set.iterator();
+		Iterator it2 = set.iterator();
 		while (it2.hasNext()) {
 			Cycliste cycliste = (Cycliste) it2.next();
 			System.out.println(cycliste);
