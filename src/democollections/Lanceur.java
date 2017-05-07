@@ -190,7 +190,7 @@ public class Lanceur {
 			// pas d'indexOf non plus
 		}
 
-		Iterator it2 = set.iterator();
+		Iterator<Cycliste> it2 = set.iterator();
 		while (it2.hasNext()) {
 			Cycliste cycliste = (Cycliste) it2.next();
 			System.out.println(cycliste);
